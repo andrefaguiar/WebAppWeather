@@ -4,11 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
 import weather.WebAppWeather.domain.Weather;
-import weather.WebAppWeather.service.WeatherService;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
