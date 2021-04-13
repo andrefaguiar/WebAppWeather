@@ -4,10 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.minidev.json.JSONArray;
+import org.springframework.stereotype.Service;
 import weather.WebAppWeather.domain.Weather;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class WeatherBuilder {
 
 

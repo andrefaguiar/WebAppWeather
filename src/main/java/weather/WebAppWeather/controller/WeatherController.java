@@ -12,6 +12,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v2/forecast")
 public class WeatherController {
 
     private final WeatherService weatherService;
@@ -20,20 +21,18 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping(value = "/{city},{country},{days}",
+    @GetMapping(value = "/{name},{country},{days}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getWeatherForecast(@RequestParam("cityId") String cityId,
+    public ResponseEntity<?> getWeatherForecast(@RequestParam("name") String name,
                                                      @RequestParam("country") String country,
                                                      @RequestParam("days") int days){
         try{
-            List<Weather> forecastCity = weatherService.getForecastByCity(cityId, country,days);
+            List<Weather> forecastCity = weatherService.getForecastByCity(name, country, days);
             if (forecastCity.size() > 0){
                 return new ResponseEntity<>(forecastCity, HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
+        } catch (URISyntaxException | MalformedURLException e) {
             e.printStackTrace();
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
