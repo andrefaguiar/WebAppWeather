@@ -1,5 +1,6 @@
 package weather.WebAppWeather.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 import weather.WebAppWeather.domain.Weather;
 
@@ -11,10 +12,6 @@ import java.util.Optional;
 @Service
 public interface WeatherService {
 
-    Optional<Weather> findWeatherByCity(Long id);
-
-    List<Weather> findAll();
-
-    List<Weather> getForecastByCity(String name, String country, int days) throws MalformedURLException, URISyntaxException;
+    List<Weather> getForecastByCity(String name, String country, int days) throws MalformedURLException, URISyntaxException, JsonProcessingException;
 
 }

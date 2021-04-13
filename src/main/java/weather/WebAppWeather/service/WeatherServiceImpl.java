@@ -1,14 +1,17 @@
 package weather.WebAppWeather.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import net.minidev.json.JSONArray;
 import org.springframework.stereotype.Service;
 import weather.WebAppWeather.domain.Weather;
 import weather.WebAppWeather.network.SourceHandler;
+import weather.WebAppWeather.network.WeatherBuilder;
 import weather.WebAppWeather.repositories.WeatherRepository;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class WeatherServiceImpl implements WeatherService{
@@ -17,24 +20,23 @@ public class WeatherServiceImpl implements WeatherService{
 
     private final SourceHandler sourceHandler;
 
-    public WeatherServiceImpl(WeatherRepository weatherRepository, SourceHandler sourceHandler) {
+    private final WeatherBuilder weatherBuilder;
+
+    public WeatherServiceImpl(WeatherRepository weatherRepository, SourceHandler sourceHandler, WeatherBuilder weatherBuilder) {
         this.weatherRepository = weatherRepository;
         this.sourceHandler = sourceHandler;
+        this.weatherBuilder = weatherBuilder;
     }
 
-    @Override
-    public Optional<Weather> findWeatherByCity(Long id) {
-        return weatherRepository.findById(id);
-    }
 
     @Override
-    public List<Weather> findAll() {
-        return weatherRepository.findAll();
+    public List<Weather> getForecastByCity(String name, String country, int days) throws MalformedURLException, URISyntaxException, JsonProcessingException {
+        JSONArray weatherArray = sourceHandler.getForecast(name, country, days);
+        List<Weather> forecastCity = weatherBuilder.getForecastArray(weatherArray);
+        return forecastCity;
     }
 
-    @Override
-    public List<Weather> getForecastByCity(String name, String country, int days) throws MalformedURLException, URISyntaxException {
-        sourceHandler.getForecast(name, country, days);
-        return null;
-    }
+
+
+
 }

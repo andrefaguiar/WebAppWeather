@@ -31,13 +31,6 @@ public class SourceHandlerImpl implements SourceHandler {
     @Value("${Key.weather.3days.timesatmps.count}")
     private static int forecast3day;
 
-    private final RestTemplate restTemplate;
-
-    public SourceHandlerImpl(RestTemplate restTemplate) {
-        this.restTemplate = new RestTemplate();
-    }
-
-
     public String getURL(String name, String country, int days){
         String cityName = name;
         String countryCod = "," + country;
@@ -65,8 +58,9 @@ public class SourceHandlerImpl implements SourceHandler {
 
 
     private <T> T getResponse(URI url, Class<T> responseType){
+        RestTemplate restTemplate = new RestTemplate();
         RequestEntity<?> request = RequestEntity.get(url).accept(MediaType.APPLICATION_JSON).build();
-        ResponseEntity<T> response = this.restTemplate.exchange(request, responseType);
+        ResponseEntity<T> response = restTemplate.exchange(request, responseType);
         return response.getBody();
 
     }
