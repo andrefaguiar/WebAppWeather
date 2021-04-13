@@ -1,6 +1,7 @@
 package weather.WebAppWeather.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
@@ -18,26 +19,26 @@ public class Weather {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonPropertyOrder
+    @JsonProperty("name")
     private String name;
 
-    @JsonPropertyOrder
+    @JsonProperty("country")
     private String country;
 
-    @JsonPropertyOrder
+    @JsonProperty("dt_txt")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dt_txt;
 
-    @JsonPropertyOrder
+    @JsonProperty("temp")
     private Double temp;
 
-    @JsonPropertyOrder
+    @JsonProperty("humidity")
     private Long humidity;
 
-    @JsonPropertyOrder
+    @JsonProperty("weather")
     private String weather;
 
-    @JsonPropertyOrder
+    @JsonProperty("description")
     private String description;
 
 
