@@ -1,19 +1,16 @@
 weather:
   source:
-    url: http://api.openweathermap.org/data/2.5/forecast?
-
+    baseUrl: http://api.openweathermap.org/data/2.5/forecast?
   API:
     Key: 1427ab33252ab6a1399d833eaf84e908
-
   default:
     city:
-      name: London
-      country: UK
+      nameDefault: London
+      countryDefault: UK
     timestamps:
-      count: 40
-    unit: metric
-    language: en
-
+      countDefault: 40
+    unitDefault: metric
+    langDefault: en
   3day:
     timestamps:
-      count: 24
+      forecast3day: 24
