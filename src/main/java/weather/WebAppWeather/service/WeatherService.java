@@ -13,6 +13,6 @@ public interface WeatherService {
 
     List<Weather> findAll();
 
-    List<Weather> getForecastByCity(String name, String country, String timestamps);
+    List<Weather> getForecastByCity(String name, String country, int days);
 
 }

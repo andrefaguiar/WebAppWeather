@@ -27,7 +27,7 @@ public class WeatherServiceImpl implements WeatherService{
     }
 
     @Override
-    public List<Weather> getForecastByCity(String name, String country, String timestamps) {
+    public List<Weather> getForecastByCity(String name, String country, int days) {
         return null;
     }
 }
