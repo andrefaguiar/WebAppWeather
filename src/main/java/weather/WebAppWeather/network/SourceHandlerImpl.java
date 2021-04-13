@@ -14,21 +14,21 @@ import java.net.URISyntaxException;
 @Service
 public class SourceHandlerImpl implements SourceHandler {
 
-    @Value("${weather.source.url}")
+    @Value("${application.weather.source.url}")
     private String baseUrl;
-    @Value("${weather.API.key}")
+    @Value("${application.weather.API.key}")
     private String key;
-    @Value("${weather.deafult.city.name}")
+    @Value("${application.weather.deafult.city.name}")
     private String cityDefault;
-    @Value("${weather.deafult.city.country}")
+    @Value("${application.weather.deafult.city.country}")
     private String countryDefault;
-    @Value("${weather.deafult.unit}")
+    @Value("${application.weather.deafult.unit}")
     private String unitDefault;
-    @Value("${weather.deafult.language}")
+    @Value("${application.weather.deafult.language}")
     private String langDefault;
-    @Value("${weather.deafult.timesatmps.count}")
+    @Value("${application.weather.deafult.timesatmps.count}")
     private int countDeafult;
-    @Value("${weather.3days.timesatmps.count}")
+    @Value("${application.weather.3days.timesatmps.count}")
     private int forecast3day;
 
     public String getURL(String name, String country, int days){

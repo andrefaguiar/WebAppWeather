@@ -1,5 +1,6 @@
 package weather.WebAppWeather.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class WeatherController {
     public static final String BASE_URL = "/api/v2/forecast";
     private final WeatherService weatherService;
 
+    @Autowired
     public WeatherController(WeatherService weatherService) {
         this.weatherService = weatherService;
     }
