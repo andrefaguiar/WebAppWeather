@@ -12,9 +12,10 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v2/forecast")
+@RequestMapping(WeatherController.BASE_URL)
 public class WeatherController {
 
+    public static final String BASE_URL = "/api/v2/forecast";
     private final WeatherService weatherService;
 
     public WeatherController(WeatherService weatherService) {
