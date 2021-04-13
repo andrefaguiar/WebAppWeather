@@ -3,22 +3,19 @@ package weather.WebAppWeather.network;
 import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-@Service
+@Component
 @Configuration
-@EnableConfigurationProperties
-@ConfigurationProperties(prefix = "weather")
 public class SourceHandlerImpl implements SourceHandler {
 
     @Value("${weather.source.baseUrl}")
@@ -38,7 +35,6 @@ public class SourceHandlerImpl implements SourceHandler {
     @Value("${weather.3days.timestamps.forecast3day}")
     private final int forecast3day;
 
-    @Autowired
     public SourceHandlerImpl(String baseUrl, String key, String nameDefault, String countryDefault, String unitDefault, String langDefault, int countDefault, int forecast3day) {
         this.baseUrl = baseUrl;
         this.key = key;
