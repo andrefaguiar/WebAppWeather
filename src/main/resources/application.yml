@@ -2,7 +2,7 @@ weather:
   source:
     baseUrl: http://api.openweathermap.org/data/2.5/forecast?
   API:
-    Key: 1427ab33252ab6a1399d833eaf84e908
+    key: 1427ab33252ab6a1399d833eaf84e908
   default:
     city:
       nameDefault: London
