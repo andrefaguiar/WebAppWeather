@@ -24,11 +24,11 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping(value = "/{name},{country},{days}",
+    @GetMapping(value = "/{name}/{country}/{days}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getWeatherForecast(@RequestParam("name") String name,
-                                                     @RequestParam("country") String country,
-                                                     @RequestParam("days") int days){
+    public ResponseEntity<?> getWeatherForecast(@PathVariable String name,
+                                                     @PathVariable(required = false) String country,
+                                                     @RequestParam(required = false) int days){
         try{
             List<Weather> forecastCity = weatherService.getForecastByCity(name, country, days);
             if (forecastCity.size() > 0){
