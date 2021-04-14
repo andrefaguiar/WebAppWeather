@@ -35,6 +35,7 @@ public class SourceHandlerImpl implements SourceHandler {
     @Value("${weather.3days.timestamps.forecast3day}")
     private final int forecast3day;
 
+    @Autowired
     public SourceHandlerImpl(String baseUrl, String key, String nameDefault, String countryDefault, String unitDefault, String langDefault, int countDefault, int forecast3day) {
         this.baseUrl = baseUrl;
         this.key = key;
