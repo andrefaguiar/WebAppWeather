@@ -2,7 +2,6 @@ package weather.WebAppWeather.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,9 +25,9 @@ public class Weather {
     @JsonProperty("country")
     private String country;
 
-    @JsonProperty("dt_txt")
+    @JsonProperty(value = "dt_txt")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime dt_txt;
+    private LocalDateTime dtTxt;
 
     @JsonProperty("temp")
     private Double temp;
@@ -43,11 +42,11 @@ public class Weather {
     private String description;
 
     @Autowired
-    public Weather(Long id, String name, String country, LocalDateTime dt_txt, Double temp, Long humidity, String weather, String description) {
+    public Weather(Long id, String name, String country, LocalDateTime dtTxt, Double temp, Long humidity, String weather, String description) {
         this.id = id;
         this.name = name;
         this.country = country;
-        this.dt_txt = dt_txt;
+        this.dtTxt = dtTxt;
         this.temp = temp;
         this.humidity = humidity;
         this.weather = weather;
@@ -66,8 +65,8 @@ public class Weather {
         return country;
     }
 
-    public LocalDateTime getDt_txt() {
-        return dt_txt;
+    public LocalDateTime getDtTxt() {
+        return dtTxt;
     }
 
     public Double getTemp() {

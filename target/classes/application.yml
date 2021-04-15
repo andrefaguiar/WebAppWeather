@@ -1,3 +1,6 @@
+spring.profiles.active: challenge
+server.port: 8080
+
 weather:
   source:
     baseUrl: "http://api.openweathermap.org/data/2.5/forecast?"

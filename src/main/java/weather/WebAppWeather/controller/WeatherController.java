@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import weather.WebAppWeather.domain.Weather;
+import weather.WebAppWeather.model.Filter;
+import weather.WebAppWeather.model.ResponseItem;
 import weather.WebAppWeather.service.WeatherService;
 
 import java.net.MalformedURLException;
@@ -24,13 +26,10 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping(value = "/{name}/{country}/{days}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getWeatherForecast(@PathVariable String name,
-                                                     @PathVariable(required = false) String country,
-                                                     @RequestParam(required = false) int days){
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getWeatherForecast(Filter filter){
         try{
-            List<Weather> forecastCity = weatherService.getForecastByCity(name, country, days);
+            List<ResponseItem> forecastCity = this.weatherService.getForecastByCity(filter);
             if (forecastCity.size() > 0){
                 return new ResponseEntity<>(forecastCity, HttpStatus.OK);
             }

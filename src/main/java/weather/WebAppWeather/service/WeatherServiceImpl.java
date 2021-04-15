@@ -5,6 +5,9 @@ import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import weather.WebAppWeather.domain.Weather;
+import weather.WebAppWeather.model.Filter;
+import weather.WebAppWeather.model.Response;
+import weather.WebAppWeather.model.ResponseItem;
 import weather.WebAppWeather.network.SourceHandler;
 import weather.WebAppWeather.network.WeatherBuilder;
 import weather.WebAppWeather.repositories.WeatherRepository;
@@ -32,9 +35,9 @@ public class WeatherServiceImpl implements WeatherService{
 
 
     @Override
-    public List<Weather> getForecastByCity(String name, String country, int days) throws MalformedURLException, URISyntaxException, JsonProcessingException {
-        JSONArray weatherArray = sourceHandler.getForecast(name, country, days);
-        return weatherBuilder.getForecastArray(weatherArray);
+    public List<ResponseItem> getForecastByCity(Filter filter) throws MalformedURLException, URISyntaxException, JsonProcessingException {
+        Response response = this.sourceHandler.getForecast(filter.getName(), filter.getCountry(), filter.getDays());
+        return this.weatherBuilder.getForecastArray(response);
     }
 
 

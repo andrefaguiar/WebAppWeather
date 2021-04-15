@@ -5,11 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import weather.WebAppWeather.model.Response;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -19,64 +18,59 @@ import java.net.URISyntaxException;
 public class SourceHandlerImpl implements SourceHandler {
 
     @Value("${weather.source.baseUrl}")
-    private final String baseUrl;
+    private String baseUrl;
     @Value("${weather.API.key}")
-    private final String key;
+    private String key;
     @Value("${weather.default.city.nameDefault}")
-    private final String nameDefault;
+    private String nameDefault;
     @Value("${weather.default.city.countryDefault}")
-    private final String countryDefault;
+    private String countryDefault;
     @Value("${weather.default.unitDefault}")
-    private final String unitDefault;
+    private String unitDefault;
     @Value("${weather.default.langDefault}")
-    private final String langDefault;
+    private String langDefault;
     @Value("${weather.default.timestamps.countDefault}")
-    private final int countDefault;
+    private int countDefault;
     @Value("${weather.3days.timestamps.forecast3day}")
-    private final int forecast3day;
+    private int forecast3day;
 
     @Autowired
-    public SourceHandlerImpl(String baseUrl, String key, String nameDefault, String countryDefault, String unitDefault, String langDefault, int countDefault, int forecast3day) {
-        this.baseUrl = baseUrl;
-        this.key = key;
-        this.nameDefault = nameDefault;
-        this.countryDefault = countryDefault;
-        this.unitDefault = unitDefault;
-        this.langDefault = langDefault;
-        this.countDefault = countDefault;
-        this.forecast3day = forecast3day;
+    public SourceHandlerImpl() {
     }
 
-    public String getURL(String name, String country, int days){
+    public String getURL(String name, String country, Integer days){
         String cityName = name;
         String countryCod = "," + country;
-        int nrCount = countDefault;
+        int nrCount = this.countDefault;
         if (name == null ){
-            cityName = nameDefault;
-            countryCod = "," + countryDefault;
+            cityName = this.nameDefault;
+            countryCod = "," + this.countryDefault;
         }
 
         if (days == 3) {
-            nrCount = forecast3day;
+            nrCount = this.forecast3day;
         }
 
-        String url = baseUrl + "q=" + cityName + countryCod + "&appid=" + key + "&cnt=" + nrCount + "&units=" + unitDefault + "&lang=" + langDefault;
+        String url = this.baseUrl + "q=" + cityName + countryCod + "&appid=" + key + "&cnt=" + nrCount + "&units=" + unitDefault + "&lang=" + langDefault;
 
         return url;
     }
 
     @Override
-    public JSONArray getForecast(String name, String country, int days) throws URISyntaxException {
+    public Response getForecast(String name, String country, Integer days) throws URISyntaxException {
         URI url = new URI(getURL(name,country, days));
-        JSONArray forecastArray = new JSONArray();
-        return forecastArray = getResponse(url, JSONArray.class);
+        return getResponse(url);
     }
 
 
-    private <T> T getResponse(URI url, Class<T> responseType){
+    private Response getResponse(URI url){
+        HttpEntity<?> request = new HttpEntity<>(null);
         RestTemplate restTemplate = new RestTemplate();
-        RequestEntity<?> request = RequestEntity.get(url).accept(MediaType.APPLICATION_JSON).build();
-        ResponseEntity<T> response = restTemplate.exchange(request, responseType);
+
+        ResponseEntity<Response> response = restTemplate.exchange(url,
+                HttpMethod.GET,
+                request,
+                Response.class);
         return response.getBody();
 
     }

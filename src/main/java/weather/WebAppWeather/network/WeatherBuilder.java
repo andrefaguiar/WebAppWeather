@@ -1,12 +1,10 @@
 package weather.WebAppWeather.network;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import net.minidev.json.JSONArray;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import weather.WebAppWeather.domain.Weather;
+import weather.WebAppWeather.model.Response;
+import weather.WebAppWeather.model.ResponseItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +12,9 @@ import java.util.List;
 public class WeatherBuilder {
 
 
-    public List<Weather> getForecastArray(JSONArray forecast) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String forecastArray = forecast.toJSONString();
-        List<Weather> forecastList = new ArrayList<>();
-        forecastList = mapper.readValue(forecastArray, new TypeReference<List<Weather>>() { });
-
+    public List<ResponseItem> getForecastArray(Response response) throws JsonProcessingException {
+        List<ResponseItem> forecastList = new ArrayList<>();
+        forecastList = response.getList();
         return forecastList;
     }
 
