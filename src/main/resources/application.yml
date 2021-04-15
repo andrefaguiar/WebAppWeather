@@ -14,6 +14,6 @@ weather:
       countDefault: 40
     unitDefault: "metric"
     langDefault: "en"
-  3day:
+  3days:
     timestamps:
       forecast3day: 24

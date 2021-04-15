@@ -11,6 +11,7 @@ public class Response {
     private Integer message;
     private Integer cnt;
     private List<ResponseItem> list;
+    private ResponseCity city;
 
     public String getCod() {
         return cod;
@@ -52,7 +53,7 @@ public class Response {
         this.city = city;
     }
 
-    private ResponseCity city;
+
 
 
 

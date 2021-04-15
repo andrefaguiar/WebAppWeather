@@ -1,6 +1,5 @@
 package weather.WebAppWeather.network;
 
-import net.minidev.json.JSONArray;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import weather.WebAppWeather.model.Response;

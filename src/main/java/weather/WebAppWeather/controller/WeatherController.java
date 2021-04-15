@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import weather.WebAppWeather.domain.Weather;
 import weather.WebAppWeather.model.Filter;
 import weather.WebAppWeather.model.ResponseItem;
 import weather.WebAppWeather.service.WeatherService;
