@@ -6,10 +6,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 import weather.WebAppWeather.model.Response;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 
 @Component
 @Configuration
@@ -28,36 +31,51 @@ public class SourceHandlerImpl implements SourceHandler {
     @Value("${weather.default.langDefault}")
     private String langDefault;
     @Value("${weather.default.timestamps.countDefault}")
-    private int countDefault;
+    private Integer countDefault;
     @Value("${weather.3days.timestamps.forecast3day}")
-    private int forecast3day;
+    private Integer forecast3day;
 
     @Autowired
     public SourceHandlerImpl() {
     }
 
-    public String getURL(String name, String country, Integer days){
+    public URI getURL(String name, String country, Integer days) throws UnsupportedEncodingException {
         String cityName = name;
         String countryCod = "," + country;
-        int nrCount = this.countDefault;
+        Integer nrCount = this.forecast3day;
         if (name == null ){
             cityName = this.nameDefault;
             countryCod = "," + this.countryDefault;
         }
 
-        if (days == 3) {
-            nrCount = this.forecast3day;
+        if (days == null || days != 3) {
+            nrCount = this.countDefault;
         }
 
-        String url = this.baseUrl + "q=" + cityName + countryCod + "&appid=" + key + "&cnt=" + nrCount + "&units=" + unitDefault + "&lang=" + langDefault;
+        if (country == null){
+            countryCod = "";
+        }
+
+//        String urlString = this.baseUrl + "q=" + cityName + countryCod + "&appid=" + key + "&cnt=" + nrCount + "&units=" + unitDefault + "&lang=" + langDefault;
+
+        URI url = UriComponentsBuilder
+                .fromHttpUrl(this.baseUrl)
+                .queryParam("q", cityName + countryCod)
+                .queryParam("appid", this.key)
+                .queryParam("cnt", nrCount)
+                .queryParam("units", this.unitDefault)
+                .queryParam("lang", this.langDefault)
+                .encode()
+                .build()
+                .toUri();
 
         return url;
     }
 
     @Override
-    public Response getForecast(String name, String country, Integer days) throws URISyntaxException {
-        URI url = new URI(getURL(name,country, days));
-        return getResponse(url);
+    public Response getForecast(String name, String country, Integer days) throws URISyntaxException, UnsupportedEncodingException {
+//        URI url = new URI(getURL(name, country, days));
+        return getResponse(getURL(name, country, days));
     }
 
 

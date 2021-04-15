@@ -12,6 +12,7 @@ import weather.WebAppWeather.network.SourceHandler;
 import weather.WebAppWeather.network.WeatherBuilder;
 import weather.WebAppWeather.repositories.WeatherRepository;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
@@ -35,7 +36,7 @@ public class WeatherServiceImpl implements WeatherService{
 
 
     @Override
-    public List<ResponseItem> getForecastByCity(Filter filter) throws MalformedURLException, URISyntaxException, JsonProcessingException {
+    public List<ResponseItem> getForecastByCity(Filter filter) throws MalformedURLException, URISyntaxException, JsonProcessingException, UnsupportedEncodingException {
         Response response = this.sourceHandler.getForecast(filter.getName(), filter.getCountry(), filter.getDays());
         return this.weatherBuilder.getForecastArray(response);
     }
