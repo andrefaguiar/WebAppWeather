@@ -18,7 +18,13 @@
 *.zip
 *.tar.gz
 *.rar
-*.yml
+
+
+# Application properties and config files
+
+application.yml
+WebAppWeather/target
+
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
